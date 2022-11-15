@@ -1,0 +1,48 @@
+url : https://formation.webdevpro.net/react/
+
+login : react
+mdp : fb
+
+React / React.js / ReactJS => la même chose
+
+=> grosse librairie => équipe de  facebook en 2011
+=> dernière version disponible
+
+=> Element de base d'une application sur react => Composant brique de base de toute application react
+
+=> Arbre de Composant
+
+App (composant racine de l'application)
+
+    barre de menu
+    zone d'article
+
+//version class
+
+class Article {
+   render () {
+        return <> un peu de texte pour l'article</>
+    }
+}
+
+// version fonctionnelle
+
+function Article () {
+    return <> un peu de texte pour l'article</>
+}
+
+=> React utilise un concept pour manipuler le DOM (Document Object Model) => Virtual DOM
+
+=> Permet de pouvoir réaliser des modifications dans nos pages web
+=> très rapidement / une quantité de mémoire faible
+
+=> React
+
+=> node -v
+
+=> npm -v
+
+npm install ... => https://www.npmjs.com/
+
+npx create-react-app jour1
+
