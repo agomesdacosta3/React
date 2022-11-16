@@ -11,7 +11,10 @@ import StateBase from "./composants/StateBase.jsx";
 import StateReduce from "./composants/StateReduce.jsx";
 import Exo5 from "./composants/exo5.jsx";
 import Effect1 from "./composants/Effect1.jsx";
-import Effect2 from "./composants/Effect2;jsx";
+// import Effect2 from "./composants/Effect2;jsx";
+import Exo6 from "./composants/exo6.jsx";
+import Exo7 from "./composants/exo7.jsx";
+import Logo from "./composants/logo.jsx";
 
 function App() {
   return (
@@ -33,6 +36,8 @@ function App() {
             <Effect1 />
             {/* <Effect2 /> */}
             <Exo6 />
+            <Exo7 />
+            <Logo />
 
           </div>
         </main> 
