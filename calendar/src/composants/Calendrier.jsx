@@ -77,19 +77,19 @@ const Calendrier = () => {
 
             <p>Marquez vos rendez-vous en cliquant sur la date qui vous intéresse</p>
             
-            <table>
+            <table className='Calendar'>
                 <thead>
 
                     <tr>
-                        <th> <button onClick={setPreviousMonth}>Précédent</button> </th>
-                        <th> {convertMonth(currentDate.month)}</th>
-                        <th> <button onClick={setNextMonth}>Suivant</button> </th>
+                        <td> <button onClick={setPreviousMonth}>Précédent</button> </td>
+                        <td> {convertMonth(currentDate.month)}</td>
+                        <td> <button onClick={setNextMonth}>Suivant</button> </td>
                     </tr>
 
                     <tr>
-                        <th> <button onClick={setPreviousYear}>Précédent</button> </th>
-                        <th> {currentDate.year}</th>
-                        <th> <button onClick={setNextYear}>Suivant</button> </th>
+                        <td> <button onClick={setPreviousYear}>Précédent</button> </td>
+                        <td> {currentDate.year}</td>
+                        <td> <button onClick={setNextYear}>Suivant</button> </td>
                     </tr>
 
                     <tr>
@@ -104,7 +104,6 @@ const Calendrier = () => {
                     
                 </thead>
                 <tbody>
-                
                 
                 </tbody>
             </table>
