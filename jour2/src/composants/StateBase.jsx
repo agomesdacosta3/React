@@ -4,7 +4,7 @@ const StateBase = () => {
     const [valeur , setValeur] = useState( 0 ) ;
     const augmenter = () => {
         setValeur(valeur + 1)
-    } 
+    }
     const diminuer = () => {
         setValeur(valeur - 1)
     } 
