@@ -1,38 +1,36 @@
+//npm install moment --save
+
 import moment from 'moment' ;
 
-import {useState} from "react" ;
+import {useState, useRef} from "react" ;
 
 const Calendrier = () => {
 
     var lastDayNumber = 0 ;
 
+    const meetingTitleRef = useRef()
+    const meetingCommentRef= useRef()
+    const meetingDateRef = useRef()
+
+    var lastMeetingId = 0 ;
+
     const [currentDate, setCurrentDate] = useState ({
         day : parseInt(moment().format("DD")),
         month : parseInt(moment().format("MM")),
         year : parseInt(moment().format("YYYY"))
-    }) 
-
-    const numDayWeek = [1,2,3,4,5,6,7]
-
-    const regularWeeks = [1,2,3,4,5]
+    }) ;
 
     const fillWeeks = () => {
+
+        const numDayWeek = [1,2,3,4,5,6,7] ;
+        const regularWeeks = [1,2,3,4,5] ;
 
         const firstDayMonth = 
         {day : 1,
          month : currentDate.month, // 3
          year : currentDate.year, // 2000
-         dayName : moment().date(1).month(currentDate.month -1).year(currentDate.year).format("dddd") } // Monday
-         
-         console.log("dayCurrent is " + currentDate.day)
-         console.log("monthCurrent is " + currentDate.month)
-         console.log("yearCurrent is " + currentDate.year)
-
-         console.log("day is " + firstDayMonth.day)
-         console.log("month is " + firstDayMonth.month)
-         console.log("year is " + firstDayMonth.year)
-         console.log("DayName is " + firstDayMonth.dayName)
-
+         dayName : moment().date(1).month(currentDate.month - 1).year(currentDate.year).format("dddd") } // Monday
+        
         if (firstDayMonth.dayName === "Monday" ) {
             lastDayNumber = 7
             return (
@@ -63,23 +61,27 @@ const Calendrier = () => {
             )
         } else if (firstDayMonth.dayName === "Tuesday" ) {
             lastDayNumber = 6
+
             return (
                 <>
                     <tr>
                         <td></td>
-                        <td><button onClick={""}>1</button></td>
-                        <td><button onClick={""}>2</button></td>
-                        <td><button onClick={""}>3</button></td>
-                        <td><button onClick={""}>4</button></td>
-                        <td><button onClick={""}>5</button></td>
-                        <td><button onClick={""}>6</button></td>
+                        <td><button onClick={() => printMeetings(1)}>1</button></td>
+                        <td><button onClick={() => printMeetings(2)}>2</button></td>
+                        <td><button onClick={() => printMeetings(3)}>3</button></td>
+                        <td><button onClick={() => printMeetings(4)}>4</button></td>
+                        <td><button onClick={() => printMeetings(5)}>5</button></td>
+                        <td><button onClick={() => printMeetings(6)}>6</button></td>
                     </tr>
                     { regularWeeks.map ( (regularWeek , index) => 
                         <tr key={index}>
                             
                             { numDayWeek.map ( (daysNum , index) => getMaxMonth(currentDate.month) > lastDayNumber ?
-                            <td key={index}>
-                                <button onClick={""}>{lastDayNumber = lastDayNumber + 1}</button>
+                            <td key={index}> 
+                                {lastDayNumber + 1 === currentDate.day
+                                ?<button className="currentDay" onClick={() => printMeetings(currentDate.day)}>{lastDayNumber = lastDayNumber + 1}</button>
+                                :<button onClick={() => printMeetings(lastDayNumber + 1)}> {lastDayNumber = lastDayNumber + 1}</button>
+                                }
                             </td> :
                             null
                             )}
@@ -275,7 +277,6 @@ const Calendrier = () => {
             case 10 : 
                 return 31
             case 11 : 
-            console.log("Novenmbre choisi donc retourne 30")
                 return 30
             case 12 : 
                 return 31
@@ -384,13 +385,77 @@ const Calendrier = () => {
         );
     }
 
+    const addMeeting = e => {
+
+        e.preventDefault() ;
+
+        const meeting = {
+            id: lastMeetingId + 1,
+            title:meetingTitleRef.current.value,
+            comment:meetingCommentRef.current.value,
+            date : meetingDateRef.current.value
+        }
+
+     //   meetings.push(meeting) ;
+
+        localStorage.setItem(meeting.id, JSON.stringify(meeting));
+
+        lastMeetingId += 1 ;
+
+        // const stringifiedMeeting= localStorage.getItem('meeting');
+        // const meetingAsObjectAgain = JSON.parse(stringifiedMeeting);
+
+        // const cloneMeetings = [...meetings]
+        // cloneMeetings.push(meeting);
+        // setMeetings(cloneMeetings);
+
+        console.log("je viens d'ajouter un rendez-vous : "+ localStorage.getItem(testKey))
+        
+        
+    } 
+    
+    function printMeetings(selectedDay) {
+        console.log("printMeeting for " + selectedDay )
+        // to do later
+
+    }
+
     return (
         <>
             <h1>Bienvenue dans votre Calendar</h1>
 
-            <p>Marquez vos rendez-vous en cliquant sur la date qui vous intéresse</p>
+            <p>Pour voir un rendez-vous qui vous intéresse cliquez sur la date qui lui est associé </p>
 
             {generateCalendar()}
+
+            <div>
+                <ul>
+                    {// meetings.map ( (meeting , index) => <li key = {index}> { meeting } </li> ) 
+                    }
+                </ul>
+            </div>
+
+            <div id="MeetingForm">
+                <h2 className="text-center my-5">Marquer un rendez-vous</h2>
+
+                <div className="d-flex justify-content-center">
+
+                    {printAllMeetings}
+                    
+                    <form className="w-50" onSubmit= {addMeeting}>
+                        
+                        <input type="text" name="meeting_title" className="form-control" placeholder="Titre" defaultValue={""} ref={meetingTitleRef} />
+                        <input type="text" name="meeting_comment" className="form-control my-3" placeholder="Commentaire" ref={meetingCommentRef} />
+                        <input type="date" name="meeting_date" className="form-control my-3" placeholder="Date" ref={meetingDateRef} />
+                        
+                        <div className="text-center">
+                            <input type="submit" className="btn btn-outline-dark" value="Ajouter" />
+                        </div>
+                        
+                    </form>
+                </div>
+            
+            </div>
             
         </>
      );
