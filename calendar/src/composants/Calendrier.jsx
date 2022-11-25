@@ -2,6 +2,8 @@
 
 import moment from 'moment' ;
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import {useState, useRef} from "react" ;
 
 const Calendrier = () => {
@@ -20,6 +22,8 @@ const Calendrier = () => {
         year : parseInt(moment().format("YYYY"))
     }) ;
 
+    const meetings = [] 
+
     const fillWeeks = () => {
 
         const numDayWeek = [1,2,3,4,5,6,7] ;
@@ -30,27 +34,101 @@ const Calendrier = () => {
          month : currentDate.month, // 3
          year : currentDate.year, // 2000
          dayName : moment().date(1).month(currentDate.month - 1).year(currentDate.year).format("dddd") } // Monday
-        
+
         if (firstDayMonth.dayName === "Monday" ) {
-            lastDayNumber = 7
+
+            setLastDayNumber(7)
+
             return (
                 <>  
                     <tr>
-                        <td><button onClick={""}>1</button></td>
-                        <td><button onClick={""}>2</button></td>
-                        <td><button onClick={""}>3</button></td>
-                        <td><button onClick={""}>4</button></td>
-                        <td><button onClick={""}>5</button></td>
-                        <td><button onClick={""}>6</button></td>
-                        <td><button onClick={""}>7</button></td>
+                        <td>
+                            {(1 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "1" value= "1" onClick={searchMeeting}>1</button>
+                                :<button id= "1" value= "1" onClick={searchMeeting}>1</button>
+                            }
+                        </td>
+
+                        <td>
+                            {(2 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "2" value= "2" onClick={searchMeeting}>2</button>
+                                :<button id= "2" value= "2" onClick={searchMeeting}>2</button>
+                            }
+                        </td>
+
+                        <td>
+                            {(3 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "3" value= "3" onClick={searchMeeting}>3</button>
+                                :<button id= "3" value= "3" onClick={searchMeeting}>3</button>
+                            }
+                        </td>
+                        
+                        <td>
+                            {(4 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "4" value= "4" onClick={searchMeeting}>4</button>
+                                :<button id= "4" value= "4" onClick={searchMeeting}>4</button>
+                            }
+                        </td>
+                        
+                        <td>
+                            {(5 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "5" value= "5" onClick={searchMeeting}>5</button>
+                                :<button id= "5" value= "5" onClick={searchMeeting}>5</button>
+                            }
+                        </td>
+                        
+                        <td>
+                            {(6 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "6" value= "6" onClick={searchMeeting}>6</button>
+                                :<button id= "6" value= "6" onClick={searchMeeting}>6</button>
+                            }
+                        </td>
+                        
+                        <td>
+                            {(7 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "7" value= "7" onClick={searchMeeting}>7</button>
+                                :<button id= "7" value= "7" onClick={searchMeeting}>7</button>
+                            }
+                        </td>
+                        
+
                     </tr>
 
                     { regularWeeks.map ( (regularWeek , index) => 
+
                         <tr key={index}>
-                            
+
                             { numDayWeek.map ( (daysNum , index) => getMaxMonth(currentDate.month) > lastDayNumber ?
-                            <td key={index}>
-                                <button onClick={""}>{lastDayNumber = lastDayNumber + 1}</button>
+                            <td key={index}> 
+                            {setLastDayNumber(lastDayNumber+1)}
+                                {(lastDayNumber === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                :<button id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                }
                             </td> :
                             null
                             )}
@@ -60,27 +138,87 @@ const Calendrier = () => {
                 </>
             )
         } else if (firstDayMonth.dayName === "Tuesday" ) {
-            lastDayNumber = 6
+
+            setLastDayNumber(6)
 
             return (
                 <>
                     <tr>
                         <td></td>
-                        <td><button onClick={() => printMeetings(1)}>1</button></td>
-                        <td><button onClick={() => printMeetings(2)}>2</button></td>
-                        <td><button onClick={() => printMeetings(3)}>3</button></td>
-                        <td><button onClick={() => printMeetings(4)}>4</button></td>
-                        <td><button onClick={() => printMeetings(5)}>5</button></td>
-                        <td><button onClick={() => printMeetings(6)}>6</button></td>
+
+                        <td>
+                            {(1 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "1" value= "1" onClick={searchMeeting}>1</button>
+                                :<button id= "1" value= "1" onClick={searchMeeting}>1</button>
+                            }
+                        </td>
+
+                        <td>
+                            {(2 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "2" value= "2" onClick={searchMeeting}>2</button>
+                                :<button id= "2" value= "2" onClick={searchMeeting}>2</button>
+                            }
+                        </td>
+
+                        <td>
+                            {(3 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "3" value= "3" onClick={searchMeeting}>3</button>
+                                :<button id= "3" value= "3" onClick={searchMeeting}>3</button>
+                            }
+                        </td>
+                        
+                        <td>
+                            {(4 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "4" value= "4" onClick={searchMeeting}>4</button>
+                                :<button id= "4" value= "4" onClick={searchMeeting}>4</button>
+                            }
+                        </td>
+                        
+                        <td>
+                            {(5 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "5" value= "5" onClick={searchMeeting}>5</button>
+                                :<button id= "5" value= "5" onClick={searchMeeting}>5</button>
+                            }
+                        </td>
+                        
+                        <td>
+                            {(6 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "6" value= "6" onClick={searchMeeting}>6</button>
+                                :<button id= "6" value= "6" onClick={searchMeeting}>6</button>
+                            }
+                        </td>
+
                     </tr>
                     { regularWeeks.map ( (regularWeek , index) => 
+
                         <tr key={index}>
-                            
+
                             { numDayWeek.map ( (daysNum , index) => getMaxMonth(currentDate.month) > lastDayNumber ?
                             <td key={index}> 
-                                {lastDayNumber + 1 === currentDate.day
-                                ?<button className="currentDay" onClick={() => printMeetings(currentDate.day)}>{lastDayNumber = lastDayNumber + 1}</button>
-                                :<button onClick={() => printMeetings(lastDayNumber + 1)}> {lastDayNumber = lastDayNumber + 1}</button>
+                            {setLastDayNumber(lastDayNumber+1)}
+                                {(lastDayNumber === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                ?<button className="currentDay" id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                :<button id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
                                 }
                             </td> :
                             null
@@ -92,26 +230,78 @@ const Calendrier = () => {
             )
                     
         } else if (firstDayMonth.dayName === "Wednesday" ) {
-            lastDayNumber = 5
+
+            setLastDayNumber(5)
+
             return (
                 <>  
                     <tr>
                         <td></td>
                         <td></td>
-                        <td><button onClick={""}>1</button></td>
-                        <td><button onClick={""}>2</button></td>
-                        <td><button onClick={""}>3</button></td>
-                        <td><button onClick={""}>4</button></td>
-                        <td><button onClick={""}>5</button></td>
+                        <td>
+                            {(1 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "1" value= "1" onClick={searchMeeting}>1</button>
+                                :<button id= "1" value= "1" onClick={searchMeeting}>1</button>
+                            }
+                        </td>
+
+                        <td>
+                            {(2 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "2" value= "2" onClick={searchMeeting}>2</button>
+                                :<button id= "2" value= "2" onClick={searchMeeting}>2</button>
+                            }
+                        </td>
+
+                        <td>
+                            {(3 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "3" value= "3" onClick={searchMeeting}>3</button>
+                                :<button id= "3" value= "3" onClick={searchMeeting}>3</button>
+                            }
+                        </td>
                         
+                        <td>
+                            {(4 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "4" value= "4" onClick={searchMeeting}>4</button>
+                                :<button id= "4" value= "4" onClick={searchMeeting}>4</button>
+                            }
+                        </td>
+                        
+                        <td>
+                            {(5 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "5" value= "5" onClick={searchMeeting}>5</button>
+                                :<button id= "5" value= "5" onClick={searchMeeting}>5</button>
+                            }
+                        </td>
                     </tr>
 
                     { regularWeeks.map ( (regularWeek , index) => 
+
                         <tr key={index}>
-                            
+
                             { numDayWeek.map ( (daysNum , index) => getMaxMonth(currentDate.month) > lastDayNumber ?
-                            <td key={index}>
-                                <button onClick={""}>{lastDayNumber = lastDayNumber + 1}</button>
+                            <td key={index}> 
+                            {setLastDayNumber(lastDayNumber+1)}
+                                {(lastDayNumber === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                ?<button className="currentDay" id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                :<button id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                }
                             </td> :
                             null
                             )}
@@ -121,24 +311,69 @@ const Calendrier = () => {
                 </>
             )
         } else if (firstDayMonth.dayName === "Thursday" ) {
-            lastDayNumber = 4
+            
+            setLastDayNumber(4)
+
             return (
                 <>
                     <tr>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><button onClick={""}>1</button></td>
-                        <td><button onClick={""}>2</button></td>
-                        <td><button onClick={""}>3</button></td>
-                        <td><button onClick={""}>4</button></td>
+                        <td>
+                            {(1 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "1" value= "1" onClick={searchMeeting}>1</button>
+                                :<button id= "1" value= "1" onClick={searchMeeting}>1</button>
+                            }
+                        </td>
+
+                        <td>
+                            {(2 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "2" value= "2" onClick={searchMeeting}>2</button>
+                                :<button id= "2" value= "2" onClick={searchMeeting}>2</button>
+                            }
+                        </td>
+
+                        <td>
+                            {(3 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "3" value= "3" onClick={searchMeeting}>3</button>
+                                :<button id= "3" value= "3" onClick={searchMeeting}>3</button>
+                            }
+                        </td>
+                        
+                        <td>
+                            {(4 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "4" value= "4" onClick={searchMeeting}>4</button>
+                                :<button id= "4" value= "4" onClick={searchMeeting}>4</button>
+                            }
+                        </td>
                     </tr>
+
                     { regularWeeks.map ( (regularWeek , index) => 
+
                         <tr key={index}>
-                            
+
                             { numDayWeek.map ( (daysNum , index) => getMaxMonth(currentDate.month) > lastDayNumber ?
-                            <td key={index}>
-                                <button onClick={""}>{lastDayNumber = lastDayNumber + 1}</button>
+                            <td key={index}> 
+                            {setLastDayNumber(lastDayNumber+1)}
+                                {(lastDayNumber === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                ?<button className="currentDay" id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                :<button id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                }
                             </td> :
                             null
                             )}
@@ -149,7 +384,9 @@ const Calendrier = () => {
             )
 
         } else if (firstDayMonth.dayName === "Friday" ) {
-            lastDayNumber = 3
+
+            setLastDayNumber(3)
+
             return (
                 <>  
                     <tr>
@@ -157,18 +394,51 @@ const Calendrier = () => {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><button onClick={""}>1</button></td>
-                        <td><button onClick={""}>2</button></td>
-                        <td><button onClick={""}>3</button></td>
+                        <td>
+                            {(1 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "1" value= "1" onClick={searchMeeting}>1</button>
+                                :<button id= "1" value= "1" onClick={searchMeeting}>1</button>
+                            }
+                        </td>
+
+                        <td>
+                            {(2 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "2" value= "2" onClick={searchMeeting}>2</button>
+                                :<button id= "2" value= "2" onClick={searchMeeting}>2</button>
+                            }
+                        </td>
+
+                        <td>
+                            {(3 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "3" value= "3" onClick={searchMeeting}>3</button>
+                                :<button id= "3" value= "3" onClick={searchMeeting}>3</button>
+                            }
+                        </td>
                         
                     </tr>
 
                     { regularWeeks.map ( (regularWeek , index) => 
+
                         <tr key={index}>
-                            
+
                             { numDayWeek.map ( (daysNum , index) => getMaxMonth(currentDate.month) > lastDayNumber ?
-                            <td key={index}>
-                                <button onClick={""}>{lastDayNumber = lastDayNumber + 1}</button>
+                            <td key={index}> 
+                            {setLastDayNumber(lastDayNumber+1)}
+                                {(lastDayNumber === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                ?<button className="currentDay" id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                :<button id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                }
                             </td> :
                             null
                             )}
@@ -178,7 +448,9 @@ const Calendrier = () => {
                 </>
             )
         } else if (firstDayMonth.dayName === "Saturday" ) {
-            lastDayNumber = 2
+            
+            setLastDayNumber(2)
+
             return (
                 <>  
                     <tr>
@@ -187,17 +459,41 @@ const Calendrier = () => {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><button onClick={""}>1</button></td>
-                        <td><button onClick={""}>2</button></td>
+                        <td>
+                            {(1 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "1" value= "1" onClick={searchMeeting}>1</button>
+                                :<button id= "1" value= "1" onClick={searchMeeting}>1</button>
+                            }
+                        </td>
+
+                        <td>
+                            {(2 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "2" value= "2" onClick={searchMeeting}>2</button>
+                                :<button id= "2" value= "2" onClick={searchMeeting}>2</button>
+                            }
+                        </td>
                         
                     </tr>
 
                     { regularWeeks.map ( (regularWeek , index) => 
+
                         <tr key={index}>
-                            
+
                             { numDayWeek.map ( (daysNum , index) => getMaxMonth(currentDate.month) > lastDayNumber ?
-                            <td key={index}>
-                                <button onClick={""}>{lastDayNumber = lastDayNumber + 1}</button>
+                            <td key={index}> 
+                            {setLastDayNumber(lastDayNumber+1)}
+                                {(lastDayNumber === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                ?<button className="currentDay" id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                :<button id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                }
                             </td> :
                             null
                             )}
@@ -207,7 +503,9 @@ const Calendrier = () => {
                 </>
             )
         } else if (firstDayMonth.dayName === "Sunday" ) {
-            lastDayNumber = 1
+           
+            setLastDayNumber(1)
+
             return (
                 <>  
                     <tr>
@@ -217,16 +515,31 @@ const Calendrier = () => {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><button onClick={""}>1</button></td>
+                        <td>
+                            {(1 === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                 
+                                ?<button className="currentDay" id= "1" value= "1" onClick={searchMeeting}>1</button>
+                                :<button id= "1" value= "1" onClick={searchMeeting}>1</button>
+                            }
+                        </td>
                         
                     </tr>
 
                     { regularWeeks.map ( (regularWeek , index) => 
+
                         <tr key={index}>
-                            
+
                             { numDayWeek.map ( (daysNum , index) => getMaxMonth(currentDate.month) > lastDayNumber ?
-                            <td key={index}>
-                                <button onClick={""}>{lastDayNumber = lastDayNumber + 1}</button>
+                            <td key={index}> 
+                            {setLastDayNumber(lastDayNumber+1)}
+                                {(lastDayNumber === currentDate.day) &&
+                                 (parseInt(moment().format("MM")) === currentDate.month) && 
+                                 (parseInt(moment().format("YYYY")) === currentDate.year)
+                                ?<button className="currentDay" id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                :<button id= {(lastDayNumber)} value= {(lastDayNumber)} onClick={searchMeeting}>{lastDayNumber}</button>
+                                }
                             </td> :
                             null
                             )}
@@ -350,6 +663,19 @@ const Calendrier = () => {
 
     }
 
+    function convertDate (dateFromForm) {
+
+        const splitDate = dateFromForm.split("-");
+        const dayFromFrom = splitDate[2]
+        const monthFromForm = splitDate[1]
+        const yearFromForm = splitDate[0]
+
+        return {day : dayFromFrom,
+                month : monthFromForm,
+                year : yearFromForm
+        }
+    }
+
     function generateCalendar() {
         return (
             <table className='Calendar'>
@@ -389,35 +715,70 @@ const Calendrier = () => {
 
         e.preventDefault() ;
 
+        const formDate = convertDate(meetingDateRef.current.value) ;
+
         const meeting = {
             id: lastMeetingId + 1,
             title:meetingTitleRef.current.value,
             comment:meetingCommentRef.current.value,
-            date : meetingDateRef.current.value
+            date : formDate,
         }
 
-     //   meetings.push(meeting) ;
-
         localStorage.setItem(meeting.id, JSON.stringify(meeting));
+      //  meetings.push(meeting);
 
         lastMeetingId += 1 ;
 
-        // const stringifiedMeeting= localStorage.getItem('meeting');
-        // const meetingAsObjectAgain = JSON.parse(stringifiedMeeting);
+        console.log("je viens d'ajouter un rendez-vous")
 
-        // const cloneMeetings = [...meetings]
-        // cloneMeetings.push(meeting);
-        // setMeetings(cloneMeetings);
+        meetingTitleRef.current.value = "";
+        meetingCommentRef.current.value = "";
+        meetingDateRef.current.value = "";
+    }
 
-        console.log("je viens d'ajouter un rendez-vous : "+ localStorage.getItem(testKey))
+    function loadMeetings (selectedDate) {
+
+        for (let i = 1; i <= localStorage.length ; i++) {
         
-        
-    } 
+            const element = JSON.parse(localStorage.getItem(i))
+
+            console.log("element récuperé is " + (element.id))
+
+            if ((parseInt(element.date.day)) === (parseInt(selectedDate.day)) && 
+                (parseInt(element.date.month)) === (parseInt(selectedDate.month)) && 
+                (parseInt(element.date.year)) === (parseInt(selectedDate.year))  ) {
+            
+                console.log("Meeting bien ajouté")
+                meetings.push(element)
+                alert("Titre du RDV " + i + " : " + element.title + "\nCommentaire du RDV " + i + " : " + element.comment +"\n\n")
+
+            } else {
+                console.log("Meeting non ajouté");
+            }
+        }
+
+        if (meetings.length < 1) {
+            alert("Aucun rendez-vous pris à cette date");
+        }
     
-    function printMeetings(selectedDay) {
-        console.log("printMeeting for " + selectedDay )
-        // to do later
+    }
+    
+    const searchMeeting = e => {
 
+        const selectedDate = {
+            day : e.currentTarget.id,
+            month : currentDate.month,
+            year : currentDate.year,
+        }
+        meetings.splice(0,meetings.length)
+        loadMeetings(selectedDate)
+        console.log("tab meetings final is " + meetings)
+        
+    }
+
+
+    function setLastDayNumber (newValue) {
+        lastDayNumber = newValue ;
     }
 
     return (
@@ -425,28 +786,20 @@ const Calendrier = () => {
             <h1>Bienvenue dans votre Calendar</h1>
 
             <p>Pour voir un rendez-vous qui vous intéresse cliquez sur la date qui lui est associé </p>
+            <p>La date d'aujourd'hui est celle sur fond bleu </p>
 
             {generateCalendar()}
-
-            <div>
-                <ul>
-                    {// meetings.map ( (meeting , index) => <li key = {index}> { meeting } </li> ) 
-                    }
-                </ul>
-            </div>
-
+            
             <div id="MeetingForm">
                 <h2 className="text-center my-5">Marquer un rendez-vous</h2>
 
                 <div className="d-flex justify-content-center">
 
-                    {printAllMeetings}
-                    
                     <form className="w-50" onSubmit= {addMeeting}>
                         
-                        <input type="text" name="meeting_title" className="form-control" placeholder="Titre" defaultValue={""} ref={meetingTitleRef} />
-                        <input type="text" name="meeting_comment" className="form-control my-3" placeholder="Commentaire" ref={meetingCommentRef} />
-                        <input type="date" name="meeting_date" className="form-control my-3" placeholder="Date" ref={meetingDateRef} />
+                        <input required type="text" name="meeting_title" className="form-control" placeholder="Titre" ref={meetingTitleRef} />
+                        <input required type="text" name="meeting_comment" className="form-control my-3" placeholder="Commentaire" ref={meetingCommentRef} />
+                        <input required type="date" name="meeting_date" className="form-control my-3" placeholder="Date" ref={meetingDateRef} />
                         
                         <div className="text-center">
                             <input type="submit" className="btn btn-outline-dark" value="Ajouter" />
