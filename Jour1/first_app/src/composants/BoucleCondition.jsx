@@ -16,10 +16,10 @@ export const BoucleCondition = () => {
         </ul>
         <h1>Deuxième manière</h1>
         <ul>
-            { etudiants.map(function(etudiant, index){
-                return <li key = {index}> {etudiant.nom}</li>
-            }
-            )}
+                { etudiants.map(function(etudiant, index){
+                    return <li key = {index}> {etudiant.nom}</li>
+                }
+                )}
         </ul>
         <h1>Trosième manière</h1>
         <ul>
