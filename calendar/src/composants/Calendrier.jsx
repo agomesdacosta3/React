@@ -1,6 +1,6 @@
 //npm install moment --save
 
-import moment from 'moment' ;
+import moment from 'moment' ; 
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -8,7 +8,9 @@ import {useState, useRef} from "react" ;
 
 const Calendrier = () => {
 
-    var lastDayNumber = 0 ;
+    var lastDayNumber = 0 ; // compteur utilisé pour remplir chaque jour du mois sur le calendrier
+
+    /*Récuperation des champs à remplir dans le formulaire de prise de rendez-vous*/
 
     const meetingTitleRef = useRef()
     const meetingCommentRef= useRef()
@@ -22,7 +24,10 @@ const Calendrier = () => {
         year : parseInt(moment().format("YYYY"))
     }) ;
 
-    const meetings = [] 
+    const meetings = [] // tableau contenant tous les rendez-vous enrengistrés dans le localStorage
+
+    /* Dans fillWeeks remplit la 1ère semaine en prenant compte de bien placer le 1er jour
+        puis on remplit les autres jours du mois sur les autres semaines */
 
     const fillWeeks = () => {
 
@@ -562,6 +567,8 @@ const Calendrier = () => {
         }      
     }
 
+    /* getMaxMonth sert à déterminer le type du mois qui lui est donné (exemple : janvier est un mois à 31 jours) */
+    
     const getMaxMonth = monthNumber => {
 
         switch(monthNumber){
@@ -598,6 +605,8 @@ const Calendrier = () => {
          }
     }
 
+    /* setPreviousMonth sert à actualiser le calendrier au mois précédent */
+
     const setPreviousMonth = () => {
 
         if (currentDate.month === 1) {
@@ -607,6 +616,8 @@ const Calendrier = () => {
         }
     }
     
+    /* setNextMonth sert à actualiser le calendrier au mois suivant */
+
     const setNextMonth = () => {
 
         if (currentDate.month === 12) {
@@ -621,13 +632,19 @@ const Calendrier = () => {
 
     }
 
+    /* setPreviousYear sert à actualiser le calendrier à l'année précédente */
+
     const setPreviousYear = () => {
         setCurrentDate({day : currentDate.day, month : currentDate.month, year : currentDate.year - 1})
     }
-        
+   
+    /* setNextYear sert à actualiser le calendrier à l'année suivante */
+    
     const setNextYear = () => {
         setCurrentDate({day : currentDate.day, month : currentDate.month, year : currentDate.year + 1})
     }
+
+    /* convertMonth sert à afficher le nom du mois dans le calendrier */
 
     function convertMonth(monthNumber) {
 
@@ -663,6 +680,9 @@ const Calendrier = () => {
 
     }
 
+    /* convertDate sert à convertir le format Date utilisé dans le forlumaire de prise de rendez-vous au format
+    date utilisé dans le composant Calendrier */
+
     function convertDate (dateFromForm) {
 
         const splitDate = dateFromForm.split("-");
@@ -676,6 +696,8 @@ const Calendrier = () => {
         }
     }
 
+    /* generateCalendar() sert à afficher le calendrier */
+    
     function generateCalendar() {
         return (
             <table className='Calendar'>
@@ -711,6 +733,8 @@ const Calendrier = () => {
         );
     }
 
+    /* addMeeting sert à ajouter un rendez-vous */
+
     const addMeeting = e => {
 
         e.preventDefault() ;
@@ -725,16 +749,16 @@ const Calendrier = () => {
         }
 
         localStorage.setItem(meeting.id, JSON.stringify(meeting));
-      //  meetings.push(meeting);
 
         lastMeetingId += 1 ;
-
-        console.log("je viens d'ajouter un rendez-vous")
 
         meetingTitleRef.current.value = "";
         meetingCommentRef.current.value = "";
         meetingDateRef.current.value = "";
     }
+
+    /* loadMeetings sert à récupérer les rendez-vous du localStorage
+        et à afficher les rendez-vous de la date sélectionné */
 
     function loadMeetings (selectedDate) {
 
@@ -742,18 +766,13 @@ const Calendrier = () => {
         
             const element = JSON.parse(localStorage.getItem(i))
 
-            console.log("element récuperé is " + (element.id))
-
             if ((parseInt(element.date.day)) === (parseInt(selectedDate.day)) && 
                 (parseInt(element.date.month)) === (parseInt(selectedDate.month)) && 
                 (parseInt(element.date.year)) === (parseInt(selectedDate.year))  ) {
             
-                console.log("Meeting bien ajouté")
                 meetings.push(element)
                 alert("Titre du RDV " + i + " : " + element.title + "\nCommentaire du RDV " + i + " : " + element.comment +"\n\n")
 
-            } else {
-                console.log("Meeting non ajouté");
             }
         }
 
@@ -762,6 +781,8 @@ const Calendrier = () => {
         }
     
     }
+
+    /* searchMeeting sert à définir la date sélectionné qui sera donné à la fonction loadMeetings */
     
     const searchMeeting = e => {
 
@@ -770,12 +791,10 @@ const Calendrier = () => {
             month : currentDate.month,
             year : currentDate.year,
         }
-        meetings.splice(0,meetings.length)
+        meetings.splice(0,meetings.length) // vide tous les rendez-vous afin de ne pas perturber le rechargement des rendez-vous
         loadMeetings(selectedDate)
-        console.log("tab meetings final is " + meetings)
         
     }
-
 
     function setLastDayNumber (newValue) {
         lastDayNumber = newValue ;
